@@ -1,0 +1,52 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+// Function to calculate the number of digits in a number
+int getNumDigits(long long num) {
+    return num == 0 ? 1 : static_cast<int>(log10(abs(num)) + 1);
+}
+
+// Karatsuba multiplication algorithm
+long long karatsuba(long long x, long long y) {
+    if (x < 10 || y < 10) {
+        return x * y;
+    }
+
+    int numDigitsX = getNumDigits(x);
+    int numDigitsY = getNumDigits(y);
+    int n = max(numDigitsX, numDigitsY);
+    int m = (n + 1) / 2;
+
+    // Decompose x and y into a, b, c, d
+    long long a = x / static_cast<long long>(pow(10, m));
+    long long b = x % static_cast<long long>(pow(10, m));
+    long long c = y / static_cast<long long>(pow(10, m));
+    long long d = y % static_cast<long long>(pow(10, m));
+
+    // Recursively calculate the three multiplication parts
+    long long ac = karatsuba(a, c);
+    long long bd = karatsuba(b, d);
+    long long ad_bc = karatsuba(a + b, c + d) - ac - bd;
+
+    // Calculate the final result using the formula
+    return static_cast<long long>(pow(10, 2 * m)) * ac +
+           static_cast<long long>(pow(10, m)) * ad_bc + bd;
+}
+
+int main() {
+    long long x, y;
+
+    // Input two integers
+    cout << "Enter first number: ";
+    cin >> x;
+    cout << "Enter second number: ";
+    cin >> y;
+
+    // Call the Karatsuba multiplication algorithm and output the result
+    long long result = karatsuba(x, y);
+    cout << "Multiplication result: " << result << endl;
+
+    return 0;
+}
