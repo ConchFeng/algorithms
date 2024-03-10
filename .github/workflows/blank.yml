@@ -1,0 +1,42 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "dev" branch
+  push:
+    branches: [ "dev" ]
+  pull_request:
+    branches: [ "dev" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    runs-on: windows-2019
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install CUDA
+      run: |
+        @echo off
+        REM Define CUDA version and installer file name
+        SET CUDA_VERSION=11.1
+        SET INSTALLER_FILE=cuda_installer.exe
+        
+        REM Download the CUDA installer
+        curl -L -o %INSTALLER_FILE% https://developer.nvidia.com/compute/cuda/11.1.1/local_installers/cuda_11.1.1_456.81_win10.exe
+        
+        REM Run the installer silently without installing the GPU Driver. Adjust the flags as necessary.
+        .\%INSTALLER_FILE% -s nvcc_11.1 cuobjdump_11.1 nvprune_11.1 cupti_11.1 cublas_11.1 cublas_dev_11.1 cudart_11.1 cufft_11.1 cufft_dev_11.1 curand_11.1 curand_dev_11.1 cusolver_11.1 cusolver_dev_11.1 cusparse_11.1 cusparse_dev_11.1 nvgraph_11.1 nvgraph_dev_11.1 npp_11.1 npp_dev_11.1 nvrtc_11.1 nvrtc_dev_11.1 nvml_dev_11.1
+
+        REM Add CUDA to the system PATH
+        SET PATH=%PATH%;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v%CUDA_VERSION%\bin
+        
+        REM Confirm CUDA installation
+        nvcc --version
+      shell: cmd
