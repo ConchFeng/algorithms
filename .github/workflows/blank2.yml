@@ -40,5 +40,6 @@ jobs:
           set CUDA_PATH=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.1
           set CUDA_PATH_V11_1=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.1
           set PATH=%CUDA_PATH%\bin;%CUDA_PATH%\libnvvp;%PATH%
+          set
           nvcc -V
         shell: cmd
