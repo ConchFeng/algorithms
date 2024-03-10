@@ -26,7 +26,8 @@ jobs:
           SET installerUrl=https://developer.download.nvidia.com/compute/cuda/11.1.1/local_installers/cuda_11.1.1_456.81_win10.exe
           SET installerPath=cuda_installer.exe
           curl -L %installerUrl% -o %installerPath%
-          %installerPath% -s nvcc_11.1 cuobjdump_11.1 nvprune_11.1 cupti_11.1 cublas_11.1 cublas_dev_11.1 cudart_11.1 cufft_11.1 cufft_dev_11.1 curand_11.1 curand_dev_11.1 cusolver_11.1 cusolver_dev_11.1 cusparse_11.1 cusparse_dev_11.1 nvrtc_11.1 nvrtc_dev_11.1 cuda_samples_11.1 Display.Driver
+          Set-ExecutionPolicy Bypass
+          Start-Process -FilePath .\%installerPath% -ArgumentList '/s /extract="C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.1"' -Wait
         shell: cmd
       
       - name: Set up CUDA
