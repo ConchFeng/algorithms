@@ -15,17 +15,16 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-steps:
-- uses: Jimver/cuda-toolkit@v0.2.14
-  id: cuda-toolkit
-  with:
-    cuda: '12.3.2'
+  build:
+    runs-on: windows-2019
+    
+  steps:
+    - uses: Jimver/cuda-toolkit@v0.2.14
+      id: cuda-toolkit
+      with:
+        cuda: '12.3.2'
 
-- name: Show CUDA Version
-  run: echo "Installed cuda version is: ${{ steps.cuda-toolkit.outputs.cuda }}"
-
-- name: Show CUDA Install Location
-  run: echo "Cuda install location: ${{ steps.cuda-toolkit.outputs.CUDA_PATH }}"
-
-- name: Verify NVCC Version
-  run: ${{ steps.cuda-toolkit.outputs.CUDA_PATH }}/bin/nvcc -V
+    - name: Print Environment Variables
+      run: | 
+        Set
+      shell: cmd
