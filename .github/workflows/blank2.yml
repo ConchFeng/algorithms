@@ -22,16 +22,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install CUDA 11.1.1
-        run: |
-          $ErrorActionPreference = "Stop" # Stop on any errors
-          # CUDA 11.1 Update 1 network installer URL
-          $installerUrl = "https://developer.download.nvidia.com/compute/cuda/11.1.1/local_installers/cuda_11.1.1_456.81_win10.exe"
-          $installerPath = "cuda_installer.exe"
-          # Download the CUDA installer
-          Invoke-WebRequest -Uri $installerUrl -OutFile $installerPath
-          # Install CUDA (adjust the components as necessary, silent install, no restart)
-          Start-Process -FilePath $installerPath -ArgumentList " -s nvcc_11.1 cuobjdump_11.1 nvprune_11.1 cupti_11.1 cublas_11.1 cublas_dev_11.1 cudart_11.1 cufft_11.1 cufft_dev_11.1 curand_11.1 curand_dev_11.1 cusolver_11.1 cusolver_dev_11.1 cusparse_11.1 cusparse_dev_11.1 nvrtc_11.1 nvrtc_dev_11.1 cuda_samples_11.1 Display.Driver" -Wait -NoNewWindow
-          # Verify CUDA installation
+        run: choco install cuda --version=11.1.1 -y
         shell: powershell
       
       - name: Print tree structure of BuildCustomizations directory
