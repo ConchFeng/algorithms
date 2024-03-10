@@ -37,6 +37,10 @@ jobs:
       - name: Print tree structure of BuildCustomizations directory
         run: tree "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Microsoft\VC\v160\BuildCustomizations" /f
         shell: cmd
+
+      - name: Print tree structure of NV directory
+        run: tree "C:\Program Files\NVIDIA GPU Computing Toolkit" /f
+        shell: cmd
         
       - name: ENVVV2
         run: |
