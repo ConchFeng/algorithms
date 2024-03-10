@@ -25,7 +25,7 @@ jobs:
         uses: Jimver/cuda-toolkit@v0.2.14  # Replace with the desired version
         id: cuda-toolkit
         with:
-          version: 11.1  # Specify the CUDA version you need
+          version: 11.1.1  # Specify the CUDA version you need
 
       - name: Verify CUDA Installation  # Checks if nvcc is available
         run: nvcc --version
