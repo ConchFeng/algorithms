@@ -22,9 +22,10 @@ jobs:
       # ... other build steps you might have
 
       - name: Install CUDA Toolkit  # Installs CUDA using the cuda-toolkit action
-        uses: jcfisher/cuda-toolkit@v1.4.1  # Replace with the desired version
+        uses: Jimver/cuda-toolkit@v0.2.14  # Replace with the desired version
+        id: cuda-toolkit
         with:
-          version: 11.8  # Specify the CUDA version you need
+          version: 11.1  # Specify the CUDA version you need
 
       - name: Verify CUDA Installation  # Checks if nvcc is available
         run: nvcc --version
