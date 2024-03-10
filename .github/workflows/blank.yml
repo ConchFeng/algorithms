@@ -21,8 +21,11 @@ steps:
   with:
     cuda: '12.3.2'
 
-- run: echo "Installed cuda version is: ${{steps.cuda-toolkit.outputs.cuda}}"
+- name: Show CUDA Version
+  run: echo "Installed cuda version is: ${{ steps.cuda-toolkit.outputs.cuda }}"
 
-- run: echo "Cuda install location: ${{steps.cuda-toolkit.outputs.CUDA_PATH}}"
+- name: Show CUDA Install Location
+  run: echo "Cuda install location: ${{ steps.cuda-toolkit.outputs.CUDA_PATH }}"
 
-- run: nvcc -V
+- name: Verify NVCC Version
+  run: ${{ steps.cuda-toolkit.outputs.CUDA_PATH }}/bin/nvcc -V
