@@ -34,13 +34,11 @@ jobs:
           # Verify CUDA installation
         shell: powershell
         
-      - name: ENVVV
-        run: |
-          nvcc -V
-        shell: powershell
-        
       - name: ENVVV2
         run: |
           set
+          set CUDA_PATH=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.1
+          set CUDA_PATH_V11_1=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.1
+          set PATH=%CUDA_PATH%\bin;%CUDA_PATH%\libnvvp;%PATH%
           nvcc -V
         shell: cmd
