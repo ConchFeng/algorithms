@@ -36,6 +36,10 @@ jobs:
         
       - name: ENVVV
         run: |
-          set
           nvcc -V
         shell: powershell
+        
+      - name: ENVVV2
+        run: |
+          set
+        shell: cmd
