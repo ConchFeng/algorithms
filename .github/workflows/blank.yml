@@ -1,13 +1,49 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "dev" branch
+  push:
+    branches: [ "dev" ]
+  pull_request:
+    branches: [ "dev" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build-and-test:
+  install-cuda:
     runs-on: windows-2019
     steps:
-      - uses: actions/checkout@v3
-      # ... other build steps
-      - # Add the cuda-toolkit step here
-      - name: Install CUDA Toolkit
-        uses: jcfisher/cuda-toolkit@v1.4.1
-        with:
-          version: 11.8
-      - name: Verify CUDA Installation
-        run: nvcc --version  # Check if nvcc is available
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install CUDA 11.1.1
+        run: |
+          SET installerUrl=https://developer.download.nvidia.com/compute/cuda/11.1.1/local_installers/cuda_11.1.1_456.81_win10.exe
+          SET installerPath=cuda_installer.exe
+          REM Download the CUDA installer
+          curl -L %installerUrl% -o %installerPath%
+          REM Install CUDA (adjust the components as necessary, silent install, no restart)
+          START /WAIT %installerPath% -s nvcc_11.1 cuobjdump_11.1 nvprune_11.1 cupti_11.1 cublas_11.1 cublas_dev_11.1 cudart_11.1 cufft_11.1 cufft_dev_11.1 curand_11.1 curand_dev_11.1 cusolver_11.1 cusolver_dev_11.1 cusparse_11.1 cusparse_dev_11.1 nvrtc_11.1 nvrtc_dev_11.1 cuda_samples_11.1 Display.Driver
+        shell: cmd
+      
+      - name: Print tree structure of BuildCustomizations directory
+        run: tree "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Microsoft\VC\v160\BuildCustomizations" /f
+        shell: cmd
+
+      - name: Print tree structure of NV directory
+        run: tree "C:\Program Files\NVIDIA GPU Computing Toolkit" /f
+        shell: cmd
+        
+      - name: ENVVV2
+        run: |
+          set
+          set CUDA_PATH=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.1
+          set CUDA_PATH_V11_1=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.1
+          set PATH=%CUDA_PATH%\bin;%CUDA_PATH%\libnvvp;%PATH%
+          set
+        shell: cmd
