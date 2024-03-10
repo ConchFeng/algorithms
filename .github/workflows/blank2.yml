@@ -42,4 +42,5 @@ jobs:
       - name: ENVVV2
         run: |
           set
+          nvcc -V
         shell: cmd
