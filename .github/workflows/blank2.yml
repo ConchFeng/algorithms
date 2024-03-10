@@ -1,0 +1,31 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "dev" branch
+  push:
+    branches: [ "dev" ]
+  pull_request:
+    branches: [ "dev" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build-and-test:
+    runs-on: windows-2019  # Targets Windows-2019 runners
+    steps:
+      - uses: actions/checkout@v3  # Checks out your code from the repository
+      # ... other build steps you might have
+
+      - name: Install CUDA Toolkit  # Installs CUDA using the cuda-toolkit action
+        uses: jcfisher/cuda-toolkit@v1.4.1  # Replace with the desired version
+        with:
+          version: 11.8  # Specify the CUDA version you need
+
+      - name: Verify CUDA Installation  # Checks if nvcc is available
+        run: nvcc --version
+
