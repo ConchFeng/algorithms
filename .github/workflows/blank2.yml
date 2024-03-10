@@ -37,4 +37,5 @@ jobs:
       - name: ENVVV
         run: |
           set
+          nvcc -V
         shell: powershell
