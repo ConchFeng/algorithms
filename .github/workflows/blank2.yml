@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install CUDA 11.1.1
-        run: choco install cuda --version=11.1.1 -y
+        run: choco install cuda --version=11.1.1
         shell: powershell
       
       - name: Print tree structure of BuildCustomizations directory
