@@ -33,6 +33,10 @@ jobs:
           Start-Process -FilePath $installerPath -ArgumentList " -s nvcc_11.1 cuobjdump_11.1 nvprune_11.1 cupti_11.1 cublas_11.1 cublas_dev_11.1 cudart_11.1 cufft_11.1 cufft_dev_11.1 curand_11.1 curand_dev_11.1 cusolver_11.1 cusolver_dev_11.1 cusparse_11.1 cusparse_dev_11.1 nvrtc_11.1 nvrtc_dev_11.1 cuda_samples_11.1" -Wait -NoNewWindow
           # Verify CUDA installation
         shell: powershell
+      
+      - name: Print tree structure of BuildCustomizations directory
+        run: tree "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Microsoft\VC\v160\BuildCustomizations" /f
+        shell: cmd
         
       - name: ENVVV2
         run: |
